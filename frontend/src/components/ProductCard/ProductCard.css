@@ -1,0 +1,128 @@
+.product-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  box-shadow: var(--shadow-soft);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-border);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  background: rgba(185, 138, 60, 0.92);
+  color: #2c241c;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+}
+
+.product-image-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bg-card-hover);
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .product-img { transform: scale(1.08); }
+.product-overlay { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateX(10px); transition: all 0.3s ease; }
+.product-card:hover .product-overlay { opacity: 1; transform: translateX(0); }
+
+.overlay-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--color-border-light);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .overlay-btn {
+  background: rgba(11, 20, 19, 0.9);
+}
+
+.overlay-btn:hover { background: rgba(185, 138, 60, 0.16); border-color: var(--color-border); color: var(--color-primary); }
+.overlay-btn.wishlist-btn.active { color: #d74d4d; border-color: #d74d4d; }
+
+.add-to-cart-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 252, 247, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-top: 1px solid var(--color-border-light);
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transform: translateY(100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.4px;
+}
+
+[data-theme='dark'] .add-to-cart-btn {
+  background: rgba(11, 20, 19, 0.92);
+}
+
+.product-card:hover .add-to-cart-btn { transform: translateY(0); }
+.add-to-cart-btn:hover { background: rgba(185, 138, 60, 0.14); color: var(--color-primary-light); }
+.product-info { padding: 16px; }
+.product-category { font-size: 11px; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.product-name { font-size: 16px; color: var(--color-text); margin: 6px 0 4px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.product-chakra { font-size: 11px; color: var(--color-text-muted); margin-bottom: 8px; }
+.product-rating { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.stars { display: flex; gap: 2px; }
+.rating-count { font-size: 11px; color: var(--color-text-muted); }
+.product-price-row { display: flex; align-items: center; justify-content: space-between; }
+.price-group { display: flex; align-items: baseline; gap: 8px; }
+.price-current { font-size: 18px; font-weight: 700; color: var(--color-primary); }
+.price-original { font-size: 13px; color: var(--color-text-muted); text-decoration: line-through; }
+.stock-warning { font-size: 11px; color: #c38d10; font-weight: 600; }
+.out-of-stock { font-size: 11px; color: #d74d4d; font-weight: 600; }

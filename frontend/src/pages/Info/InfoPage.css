@@ -1,0 +1,66 @@
+.info-page { padding-top: 0; }
+
+.info-hero {
+  position: relative;
+  padding: 180px 0 96px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(47, 127, 118, 0.18), transparent 34%),
+    radial-gradient(circle at top right, rgba(185, 138, 60, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(244,236,223,0.9) 100%);
+}
+
+[data-theme='dark'] .info-hero {
+  background:
+    radial-gradient(circle at top left, rgba(35, 102, 86, 0.28), transparent 34%),
+    radial-gradient(circle at top right, rgba(194, 159, 92, 0.18), transparent 30%),
+    linear-gradient(180deg, #0a1413 0%, #0f1d1b 100%);
+}
+
+.info-hero-glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+}
+
+.info-hero-glow-left { left: -120px; top: 40px; background: #2f7f76; }
+.info-hero-glow-right { right: -120px; top: 20px; background: #c29f5c; }
+
+.info-hero-content { position: relative; z-index: 1; max-width: 780px; }
+.info-hero-content h1 { font-size: clamp(2.4rem, 6vw, 4.8rem); line-height: 1.04; margin-bottom: 20px; }
+.info-hero-content p { max-width: 640px; color: var(--color-text-muted); font-size: 1.05rem; line-height: 1.8; }
+.info-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+.info-sections { padding: 80px 0 96px; }
+.info-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+.info-card-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  color: var(--color-primary);
+  background: rgba(185, 138, 60, 0.14);
+  border: 1px solid rgba(185, 138, 60, 0.24);
+}
+
+.info-card h2 { font-size: 1.35rem; margin-bottom: 12px; }
+.info-card p { color: var(--color-text-muted); line-height: 1.8; }
+
+@media (max-width: 900px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .info-hero { padding: 150px 0 76px; }
+}

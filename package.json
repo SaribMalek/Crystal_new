@@ -1,0 +1,8 @@
+{
+  "name": "crystal-aura-workspace",
+  "private": true,
+  "scripts": {
+    "start": "start.bat",
+    "setup": "setup.bat"
+  }
+}
