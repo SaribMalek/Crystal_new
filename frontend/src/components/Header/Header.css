@@ -87,7 +87,15 @@
   margin-top: 3px;
 }
 
-.nav { display: flex; align-items: center; gap: 4px; }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: nowrap;
+}
 
 .nav-link,
 .nav-link-button {
@@ -95,6 +103,8 @@
   align-items: center;
   gap: 4px;
   padding: 10px 16px;
+  white-space: nowrap;
+  flex-shrink: 0;
   color: var(--color-text);
   font-size: 14px;
   font-weight: 600;
@@ -345,7 +355,15 @@
 .mobile-link.logout { color: #d74d4d; }
 .desktop-nav { display: flex; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1260px) {
+  .nav-link,
+  .nav-link-button {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1180px) {
   .desktop-nav { display: none; }
   .mobile-menu-btn { display: flex; }
   .mobile-menu { display: flex; }

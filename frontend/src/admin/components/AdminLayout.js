@@ -23,6 +23,7 @@ import {
   Boxes,
   WalletCards,
   FileText,
+  BookOpen,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -42,6 +43,7 @@ const NAV_GROUPS = [
       { path: '/admin/products', icon: <Package size={18} />, label: 'Products' },
       { path: '/admin/categories', icon: <Tag size={18} />, label: 'Categories' },
       { path: '/admin/menus', icon: <Rows3 size={18} />, label: 'Menus' },
+      { path: '/admin/blogs', icon: <BookOpen size={18} />, label: 'Blogs' },
       { path: '/admin/settings', icon: <Boxes size={18} />, label: 'CMS & Content' },
     ],
   },
@@ -86,7 +88,7 @@ const AdminLayout = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/admin/login" />;
   if (user.role !== 'admin') return <Navigate to="/" />;
 
   const isActive = (path, exact) => exact ? location.pathname === path : location.pathname.startsWith(path);

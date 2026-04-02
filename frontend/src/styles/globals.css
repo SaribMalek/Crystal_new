@@ -236,6 +236,47 @@ input, select, textarea { font-family: inherit; }
 .star { color: #fbbf24; }
 .star-empty { color: rgba(120, 120, 120, 0.5); }
 
+.app-toast {
+  min-width: 290px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 16px !important;
+  backdrop-filter: blur(14px);
+}
+
+.app-toast.toast-success {
+  border-color: rgba(47, 127, 118, 0.28) !important;
+  background: linear-gradient(135deg, rgba(47, 127, 118, 0.12), rgba(255, 255, 255, 0.94)) !important;
+  color: #1f5f58 !important;
+}
+
+.app-toast.toast-error {
+  border-color: rgba(215, 77, 77, 0.28) !important;
+  background: linear-gradient(135deg, rgba(215, 77, 77, 0.12), rgba(255, 255, 255, 0.95)) !important;
+  color: #9f2f2f !important;
+}
+
+.app-toast.toast-loading {
+  border-color: rgba(185, 138, 60, 0.28) !important;
+  background: linear-gradient(135deg, rgba(185, 138, 60, 0.14), rgba(255, 255, 255, 0.94)) !important;
+  color: var(--color-text) !important;
+}
+
+[data-theme='dark'] .app-toast.toast-success {
+  background: linear-gradient(135deg, rgba(31, 107, 93, 0.28), rgba(13, 24, 23, 0.96)) !important;
+  color: #dff5ee !important;
+}
+
+[data-theme='dark'] .app-toast.toast-error {
+  background: linear-gradient(135deg, rgba(185, 63, 63, 0.3), rgba(22, 13, 13, 0.96)) !important;
+  color: #ffe4e4 !important;
+}
+
+[data-theme='dark'] .app-toast.toast-loading {
+  background: linear-gradient(135deg, rgba(185, 144, 72, 0.28), rgba(20, 17, 12, 0.96)) !important;
+  color: #f5f0e8 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *,

@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Gem, LogIn } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 import './Auth.css';
 
-const Login = () => {
+const Login = ({ adminOnly = false }) => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { user, login, logout } = useAuth();
   const navigate = useNavigate();
+
+  if (user) {
+    return <Navigate to={user.role === 'admin' ? '/admin' : '/'} replace />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const res = await login(form.email, form.password);
+      if (adminOnly && res.user.role !== 'admin') {
+        logout({ silent: true });
+        toast.error('Admin account required');
+        return;
+      }
       toast.success(`Welcome back, ${res.user.name}!`);
       navigate(res.user.role === 'admin' ? '/admin' : '/');
     } catch (err) {
@@ -27,20 +36,24 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-bg">
-        <div className="auth-orb auth-orb-1" />
-        <div className="auth-orb auth-orb-2" />
-      </div>
+    <div className={`auth-page ${adminOnly ? 'auth-page-admin' : ''}`}>
+      {!adminOnly && (
+        <div className="auth-bg">
+          <div className="auth-orb auth-orb-1" />
+          <div className="auth-orb auth-orb-2" />
+        </div>
+      )}
       <div className="auth-container">
         <div className="auth-card glass-card">
           <div className="auth-header">
-            <Link to="/" className="auth-logo">
-              <Gem size={32} />
-              <span>AS Crystal</span>
-            </Link>
-            <h2>Welcome Back</h2>
-            <p>Sign in to your account to continue</p>
+            {!adminOnly && (
+              <Link to="/" className="auth-logo">
+                <Gem size={32} />
+                <span>AS Crystal</span>
+              </Link>
+            )}
+            <h2>{adminOnly ? 'Admin Login' : 'Welcome Back'}</h2>
+            {!adminOnly && <p>Sign in to your account to continue</p>}
           </div>
 
           <form onSubmit={handleSubmit} className="auth-form">

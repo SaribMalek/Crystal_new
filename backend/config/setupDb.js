@@ -262,6 +262,37 @@ async function setupDatabase() {
     )
   `);
 
+  await connection.query(`
+    CREATE TABLE IF NOT EXISTS contact_messages (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(120) NOT NULL,
+      email VARCHAR(150) NOT NULL,
+      phone VARCHAR(30) DEFAULT NULL,
+      subject VARCHAR(200) DEFAULT NULL,
+      message TEXT NOT NULL,
+      status ENUM('new','read','closed') DEFAULT 'new',
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await connection.query(`
+    CREATE TABLE IF NOT EXISTS blogs (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(220) NOT NULL,
+      slug VARCHAR(240) UNIQUE NOT NULL,
+      excerpt TEXT,
+      content LONGTEXT NOT NULL,
+      cover_image VARCHAR(255) DEFAULT NULL,
+      is_featured BOOLEAN DEFAULT FALSE,
+      is_published BOOLEAN DEFAULT TRUE,
+      published_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      author_id INT DEFAULT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL
+    )
+  `);
+
   const [menuRows] = await connection.query('SELECT COUNT(*) AS count FROM menus');
   if (!menuRows[0].count) {
     const insertMenuItem = async (menuKey, title, link, sortOrder, parentId = null) => {
@@ -413,6 +444,62 @@ async function setupDatabase() {
   for (const user of demoUsers) {
     await ensureDemoUser(connection, bcrypt, user);
   }
+
+  await connection.query(`
+    INSERT INTO blogs (title, slug, excerpt, content, cover_image, is_featured, is_published, published_at, author_id)
+    SELECT ?, ?, ?, ?, ?, ?, ?, ?, u.id
+    FROM users u
+    WHERE u.email = 'admin@gmail.com'
+    ON DUPLICATE KEY UPDATE
+      title = VALUES(title),
+      excerpt = VALUES(excerpt),
+      content = VALUES(content),
+      cover_image = VALUES(cover_image),
+      is_featured = VALUES(is_featured),
+      is_published = VALUES(is_published),
+      published_at = VALUES(published_at),
+      author_id = VALUES(author_id)
+  `, [
+    'How to Choose Your First Healing Crystal',
+    'how-to-choose-your-first-healing-crystal',
+    'A beginner-friendly guide to shopping for your first crystal by intention, energy, and daily use.',
+    `<p>Choosing your first crystal should feel calm, personal, and enjoyable. Instead of trying to buy everything at once, start with the intention you want the stone to support.</p>
+    <p>If you want emotional softness and heart-led energy, rose quartz is a beautiful place to begin. For grounding and protection, black tourmaline is one of the most trusted starting stones. If you want clarity, amplification, and a clean everyday crystal, clear quartz is a classic choice.</p>
+    <p>As you build your collection, focus on how you want the crystal to fit into your routine. Some people keep a pocket stone with them throughout the day, while others choose pieces for meditation, sleep, gifting, or decorating their space.</p>
+    <p>A small, intentional first purchase is usually better than an overwhelming one. Start simple, choose quality, and let your collection grow naturally over time.</p>`,
+    'https://images.unsplash.com/photo-1518301181949-fd2a09558d2b?w=1200&q=80',
+    1,
+    1,
+    '2026-03-10 09:00:00',
+  ]);
+
+  await connection.query(`
+    INSERT INTO blogs (title, slug, excerpt, content, cover_image, is_featured, is_published, published_at, author_id)
+    SELECT ?, ?, ?, ?, ?, ?, ?, ?, u.id
+    FROM users u
+    WHERE u.email = 'admin@gmail.com'
+    ON DUPLICATE KEY UPDATE
+      title = VALUES(title),
+      excerpt = VALUES(excerpt),
+      content = VALUES(content),
+      cover_image = VALUES(cover_image),
+      is_featured = VALUES(is_featured),
+      is_published = VALUES(is_published),
+      published_at = VALUES(published_at),
+      author_id = VALUES(author_id)
+  `, [
+    'Crystal Cleansing Rituals for Home and Daily Use',
+    'crystal-cleansing-rituals-for-home-and-daily-use',
+    'Simple cleansing methods you can use to refresh your crystals and keep your space feeling intentional.',
+    `<p>Cleansing rituals do not need to be complicated. The goal is to reset the energy of your crystal after heavy use, travel, gifting, or long periods in one space.</p>
+    <p>Popular methods include smoke cleansing, moonlight, sound, and selenite charging. Selenite is especially loved because it is easy to use and works beautifully for keeping small collections refreshed.</p>
+    <p>Not every crystal should be placed in water or direct sunlight for long periods, so it is helpful to choose gentle methods unless you know the stone is safe. For many people, a monthly cleansing ritual is enough, while frequently used stones can be refreshed more often.</p>
+    <p>Pairing cleansing with intention setting makes the ritual feel more personal. Hold the crystal, take a breath, and bring your focus back to what you want that stone to support.</p>`,
+    'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=1200&q=80',
+    0,
+    1,
+    '2026-03-18 11:30:00',
+  ]);
 
   const [productRows] = await connection.query('SELECT id, slug, name, price, sale_price, category_id, images FROM products');
   const [userRows] = await connection.query('SELECT id, email, name FROM users WHERE role = "user"');

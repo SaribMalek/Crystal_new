@@ -15,7 +15,7 @@ const Wishlist = () => {
     userAPI.getWishlist().then((res) => setWishlist(res.wishlist || [])).finally(() => setLoading(false));
   }, []);
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/" replace />;
 
   return (
     <div className="wishlist-page">

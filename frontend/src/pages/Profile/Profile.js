@@ -13,7 +13,7 @@ const Profile = () => {
   const [saving, setSaving] = useState(false);
   const [changingPass, setChangingPass] = useState(false);
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/" replace />;
 
   const handleProfile = async (e) => {
     e.preventDefault();

@@ -50,6 +50,10 @@ const Header = () => {
     setSearchQuery('');
   };
 
+  const shopGroups = Array.isArray(menus?.shop) ? menus.shop.filter((group) => group?.title && Array.isArray(group.items)) : [];
+  const quickMenuItems = Array.isArray(menus?.quick) ? menus.quick.filter((item) => item?.title) : [];
+  const hasShopMenu = shopGroups.length > 0;
+
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-topbar">
@@ -77,27 +81,35 @@ const Header = () => {
 
           <nav className="nav desktop-nav">
             <Link to="/" className="nav-link">Home</Link>
-            <div className="nav-dropdown" onMouseEnter={() => setShopDropdown(true)} onMouseLeave={() => setShopDropdown(false)}>
-              <button className="nav-link nav-link-button" type="button">
-                Shop <ChevronDown size={14} />
-              </button>
-              {shopDropdown && (
-                <div className="dropdown-menu mega-menu">
-                  <div className="dropdown-grid mega-grid">
-                    {menus.shop.map((group) => (
-                      <div key={group.title}>
-                        <span className="dropdown-label">{group.title}</span>
-                        {group.items.map((item) => (
-                          <Link key={`${group.title}-${item.title}`} to={item.link} className="dropdown-item">{item.title}</Link>
-                        ))}
-                      </div>
-                    ))}
+            {hasShopMenu ? (
+              <div className="nav-dropdown" onMouseEnter={() => setShopDropdown(true)} onMouseLeave={() => setShopDropdown(false)}>
+                <button className="nav-link nav-link-button" type="button">
+                  Shop <ChevronDown size={14} />
+                </button>
+                {shopDropdown && (
+                  <div className="dropdown-menu mega-menu">
+                    <div className="dropdown-grid mega-grid">
+                      {shopGroups.map((group) => (
+                        <div key={group.title}>
+                          <span className="dropdown-label">{group.title}</span>
+                          {group.items.length ? (
+                            group.items.map((item) => (
+                              item?.link ? <Link key={`${group.title}-${item.title}`} to={item.link} className="dropdown-item">{item.title}</Link> : null
+                            ))
+                          ) : (
+                            group.link ? <Link to={group.link} className="dropdown-item">{group.title}</Link> : null
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-            {menus.quick.map((item) => (
-              <Link key={item.title} to={item.link} className="nav-link">{item.title}</Link>
+                )}
+              </div>
+            ) : (
+              <Link to="/shop" className="nav-link">Shop</Link>
+            )}
+            {quickMenuItems.map((item) => (
+              item.link ? <Link key={item.title} to={item.link} className="nav-link">{item.title}</Link> : null
             ))}
           </nav>
 
@@ -181,15 +193,17 @@ const Header = () => {
       {menuOpen && (
         <div className="mobile-menu">
           <Link to="/" className="mobile-link">Home</Link>
-          {menus.quick.map((item) => (
-            <Link key={item.title} to={item.link} className="mobile-link">{item.title}</Link>
+          {quickMenuItems.map((item) => (
+            item.link ? <Link key={item.title} to={item.link} className="mobile-link">{item.title}</Link> : null
           ))}
-          {menus.shop.map((group) => (
+          {shopGroups.map((group) => (
             <div key={group.title}>
               <div className="mobile-menu-label">{group.title}</div>
-              {group.items.map((item) => (
-                <Link key={`${group.title}-${item.title}`} to={item.link} className="mobile-link sub">{item.title}</Link>
-              ))}
+              {group.items.length ? group.items.map((item) => (
+                item?.link ? <Link key={`${group.title}-${item.title}`} to={item.link} className="mobile-link sub">{item.title}</Link> : null
+              )) : (
+                group.link ? <Link to={group.link} className="mobile-link sub">{group.title}</Link> : null
+              )}
             </div>
           ))}
           {user ? (
@@ -201,8 +215,8 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link to="/login" className="mobile-link">Login</Link>
-              <Link to="/register" className="mobile-link">Register</Link>
+              <button type="button" className="mobile-link" onClick={() => openAuthModal('login')}>Login</button>
+              <button type="button" className="mobile-link" onClick={() => openAuthModal('register')}>Register</button>
             </>
           )}
         </div>

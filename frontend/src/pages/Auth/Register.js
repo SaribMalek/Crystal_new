@@ -9,7 +9,7 @@ const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '', confirm: '' });
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, openAuthModal } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -68,7 +68,7 @@ const Register = () => {
               {loading ? <span className="loading-spinner small" /> : <><UserPlus size={18} /> Create Account</>}
             </button>
           </form>
-          <p className="auth-switch">Already have an account? <Link to="/login">Sign in</Link></p>
+          <p className="auth-switch">Already have an account? <button type="button" className="auth-inline-btn" onClick={() => { navigate('/'); openAuthModal('login'); }}>Sign in</button></p>
         </div>
       </div>
     </div>

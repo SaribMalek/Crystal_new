@@ -84,3 +84,22 @@ exports.sendOrderStatusEmail = async ({ email, name, orderNumber, status, tracki
     `,
   });
 };
+
+exports.sendContactNotificationEmail = async ({ name, email, phone, subject, message }) => {
+  const adminEmail = process.env.CONTACT_TO_EMAIL || process.env.SMTP_FROM || process.env.SMTP_USER;
+  if (!adminEmail) return;
+
+  await sendMail({
+    to: adminEmail,
+    subject: `New contact enquiry: ${subject || 'General enquiry'}`,
+    html: `
+      <h2>New contact form submission</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone || '-'}</p>
+      <p><strong>Subject:</strong> ${subject || 'General enquiry'}</p>
+      <p><strong>Message:</strong></p>
+      <p>${String(message || '').replace(/\n/g, '<br/>')}</p>
+    `,
+  });
+};

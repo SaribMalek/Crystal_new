@@ -89,4 +89,18 @@ export const menuAPI = {
   deleteMenuItem: (id) => API.delete(`/menus/${id}`),
 };
 
+export const contactAPI = {
+  submit: (data) => API.post('/contact', data),
+};
+
+export const blogAPI = {
+  getBlogs: (params) => API.get('/blogs', { params }),
+  getAdminBlogs: () => API.get('/blogs/admin'),
+  getBlog: (slug) => API.get(`/blogs/${slug}`),
+  getAdminBlog: (id) => API.get(`/blogs/admin/${id}`),
+  createBlog: (data) => API.post('/blogs', data),
+  updateBlog: (id, data) => API.put(`/blogs/${id}`, data),
+  deleteBlog: (id) => API.delete(`/blogs/${id}`),
+};
+
 export default API;

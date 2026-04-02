@@ -14,7 +14,7 @@ const Orders = () => {
     orderAPI.getOrders().then((res) => setOrders(res.orders || [])).finally(() => setLoading(false));
   }, []);
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/" replace />;
 
   return (
     <div className="orders-page">
