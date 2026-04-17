@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Search, UserCheck, UserX, Trash2 } from 'lucide-react';
 import { userAPI } from '../../services/api';
 import toast from 'react-hot-toast';
@@ -9,13 +9,13 @@ const AdminUsers = () => {
   const [search, setSearch] = useState('');
   const [total, setTotal] = useState(0);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try { const res = await userAPI.getUsers({ search }); setUsers(res.users || []); setTotal(res.total || 0); }
     finally { setLoading(false); }
-  };
+  }, [search]);
 
-  useEffect(() => { const t = setTimeout(load, 400); return () => clearTimeout(t); }, [search]);
+  useEffect(() => { const t = setTimeout(load, 400); return () => clearTimeout(t); }, [load]);
 
   const toggleStatus = async (id, isActive, name) => {
     try {
@@ -43,7 +43,7 @@ const AdminUsers = () => {
   return (
     <div>
       <div className="admin-page-header">
-        <h1>Customers <span style={{ fontSize: 16, color: 'var(--color-text-muted)', fontFamily: 'Inter' }}>({total})</span></h1>
+        <h1>Customers <span style={{ fontSize: 16, color: 'var(--color-text-muted)', fontFamily: 'var(--font-body)' }}>({total})</span></h1>
         <span style={{ fontSize: 13, color: 'var(--color-text-muted)' }}>
           Deactivate a customer first, then delete if needed.
         </span>
@@ -53,17 +53,19 @@ const AdminUsers = () => {
         <div className="admin-table-header">
           <div className="admin-search"><Search size={14} /><input placeholder="Search by name or email..." value={search} onChange={(e) => setSearch(e.target.value)} /></div>
         </div>
-        <div style={{ overflowX: 'auto' }}>
+        <div className="admin-table-scroll">
           <table className="admin-table">
             <thead><tr><th>Customer</th><th>Phone</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody>
               {loading ? (
                 <tr><td colSpan={5} style={{ textAlign: 'center', padding: 40, color: 'var(--color-text-muted)' }}>Loading...</td></tr>
+              ) : users.length === 0 ? (
+                <tr><td colSpan={5} style={{ textAlign: 'center', padding: 40, color: 'var(--color-text-muted)' }}>No customers found</td></tr>
               ) : users.map((u) => (
                 <tr key={u.id}>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--gradient-purple)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 14, flexShrink: 0 }}>{u.name?.[0]?.toUpperCase()}</div>
+                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--gradient-accent)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 14, flexShrink: 0 }}>{u.name?.[0]?.toUpperCase()}</div>
                       <div>
                         <p style={{ fontWeight: 500 }}>{u.name}</p>
                         <p style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>{u.email}</p>

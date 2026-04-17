@@ -28,7 +28,7 @@ const AdminReviews = () => {
   return (
     <div>
       <div className="admin-page-header">
-        <h1>Pending Reviews <span style={{ fontSize: 16, color: 'var(--color-text-muted)', fontFamily: 'Inter' }}>({reviews.length})</span></h1>
+        <h1>Pending Reviews <span style={{ fontSize: 16, color: 'var(--color-text-muted)', fontFamily: 'var(--font-body)' }}>({reviews.length})</span></h1>
       </div>
 
       {loading ? (
@@ -40,13 +40,13 @@ const AdminReviews = () => {
           <p style={{ color: 'var(--color-text-muted)' }}>No pending reviews to approve</p>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div className="admin-panel-stack">
           {reviews.map((r) => (
             <div key={r.id} className="admin-form-card" style={{ padding: 20 }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--gradient-purple)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0 }}>{r.user_name?.[0]?.toUpperCase()}</div>
+                    <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--gradient-accent)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0 }}>{r.user_name?.[0]?.toUpperCase()}</div>
                     <div>
                       <strong style={{ fontSize: 14 }}>{r.user_name}</strong>
                       <div style={{ display: 'flex', gap: 2, marginTop: 2 }}>

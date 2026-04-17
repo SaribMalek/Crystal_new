@@ -48,7 +48,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginBottom: 24 }}>
+      <div className="admin-grid-two">
         <div className="admin-table-wrap">
           <div className="admin-table-header">
             <h3><TrendingUp size={18} style={{ verticalAlign: 'middle', marginRight: 8 }} />Monthly Sales</h3>
@@ -80,7 +80,7 @@ const Dashboard = () => {
           <div className="admin-table-header"><h3>Top Products</h3></div>
           <div style={{ padding: '8px 0' }}>
             {topProducts?.length > 0 ? topProducts.map((product, index) => (
-              <div key={product.name || index} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 20px', borderBottom: '1px solid var(--color-border-light)' }}>
+              <div key={product.name || index} className="admin-list-item">
                 <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'rgba(185,138,60,0.15)', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{index + 1}</span>
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: 13, fontWeight: 600 }}>{product.name}</p>
@@ -98,7 +98,7 @@ const Dashboard = () => {
           <h3>Recent Orders</h3>
           <Link to="/admin/orders" className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: 13 }}>View All <Eye size={14} /></Link>
         </div>
-        <div style={{ overflowX: 'auto' }}>
+        <div className="admin-table-scroll">
           <table className="admin-table">
             <thead><tr><th>Order #</th><th>Customer</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
             <tbody>

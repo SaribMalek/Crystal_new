@@ -79,12 +79,12 @@ const Reports = () => {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
+      <div className="admin-grid-equal">
         <div className="admin-table-wrap">
           <div className="admin-table-header"><h3>Sales by Status</h3></div>
           <div style={{ padding: '12px 0' }}>
             {salesByStatus.map((item) => (
-              <div key={item.status} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px', borderBottom: '1px solid var(--color-border-light)' }}>
+              <div key={item.status} className="admin-list-item">
                 <div>
                   <div style={{ fontWeight: 700, textTransform: 'capitalize' }}>{item.status}</div>
                   <div style={{ color: 'var(--color-text-muted)', fontSize: 12 }}>{item.count} orders</div>
@@ -99,7 +99,7 @@ const Reports = () => {
           <div className="admin-table-header"><h3>Sales by Month</h3></div>
           <div style={{ padding: '12px 0' }}>
             {salesByMonth.map((item) => (
-              <div key={item.month} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px', borderBottom: '1px solid var(--color-border-light)' }}>
+              <div key={item.month} className="admin-list-item">
                 <div>
                   <div style={{ fontWeight: 700 }}>{item.month}</div>
                   <div style={{ color: 'var(--color-text-muted)', fontSize: 12 }}>{item.orders} orders</div>
@@ -111,12 +111,12 @@ const Reports = () => {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+      <div className="admin-grid-equal" style={{ marginBottom: 0 }}>
         <div className="admin-table-wrap">
           <div className="admin-table-header"><h3>Top Categories</h3></div>
           <div style={{ padding: '12px 0' }}>
             {topCategories.map((item, index) => (
-              <div key={`${item.name}-${index}`} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px', borderBottom: '1px solid var(--color-border-light)' }}>
+              <div key={`${item.name}-${index}`} className="admin-list-item">
                 <div>
                   <div style={{ fontWeight: 700 }}>{item.name || 'Uncategorized'}</div>
                   <div style={{ color: 'var(--color-text-muted)', fontSize: 12 }}>{item.items_sold} items sold</div>
@@ -131,7 +131,7 @@ const Reports = () => {
           <div className="admin-table-header"><h3>Top Customers</h3></div>
           <div style={{ padding: '12px 0' }}>
             {topCustomers.map((item) => (
-              <div key={item.email} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px', borderBottom: '1px solid var(--color-border-light)' }}>
+              <div key={item.email} className="admin-list-item">
                 <div>
                   <div style={{ fontWeight: 700 }}>{item.name}</div>
                   <div style={{ color: 'var(--color-text-muted)', fontSize: 12 }}>{item.email}</div>

@@ -45,7 +45,7 @@ const AdminCategories = () => {
       </div>
 
       <div className="admin-table-wrap">
-        <div style={{ overflowX: 'auto' }}>
+        <div className="admin-table-scroll">
           <table className="admin-table">
             <thead><tr><th>Name</th><th>Slug</th><th>Products</th><th>Sort Order</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody>
@@ -73,7 +73,7 @@ const AdminCategories = () => {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="admin-form-card" style={{ width: 480, maxWidth: '90vw' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
-              <h3 style={{ fontFamily: 'Playfair Display,serif', fontSize: 20 }}>{editing ? 'Edit Category' : 'Add Category'}</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20 }}>{editing ? 'Edit Category' : 'Add Category'}</h3>
               <button onClick={() => setModal(false)} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer' }}><X size={20} /></button>
             </div>
             <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

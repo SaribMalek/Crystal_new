@@ -126,3 +126,30 @@
 .price-original { font-size: 13px; color: var(--color-text-muted); text-decoration: line-through; }
 .stock-warning { font-size: 11px; color: #c38d10; font-weight: 600; }
 .out-of-stock { font-size: 11px; color: #d74d4d; font-weight: 600; }
+
+@media (max-width: 768px) {
+  .product-overlay {
+    opacity: 1;
+    transform: none;
+    flex-direction: row;
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+  }
+  .add-to-cart-btn {
+    transform: translateY(0);
+    position: static;
+    border-top: 1px solid var(--color-border-light);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-info {
+    padding: 14px;
+  }
+  .product-price-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}

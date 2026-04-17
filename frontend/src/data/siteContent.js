@@ -60,7 +60,7 @@ export const servicePages = {
       },
       {
         title: 'What the session includes',
-        body: 'You can position this as a short discovery call or guided recommendation service that suggests crystals, combinations, and ritual pairings based on the customer’s intention.',
+        body: 'You can position this as a short discovery call or guided recommendation service that suggests crystals, combinations, and ritual pairings based on the customer intention.',
       },
       {
         title: 'How to use it on your store',
@@ -180,30 +180,38 @@ export const infoPages = {
   privacy: {
     eyebrow: 'Privacy Policy',
     title: 'Explain what data you collect and how it supports the customer journey.',
-    intro: 'This placeholder content gives the site a complete structure now and can later be replaced with finalized legal text.',
+    intro: 'We respect your privacy and only collect the information needed to process orders, improve support, and provide a secure shopping experience.',
     sections: [
       {
         title: 'Data collected',
-        body: 'Typical ecommerce stores collect names, contact details, addresses, order information, and account activity to support checkout, shipping, and customer service.',
+        body: 'We may collect your name, contact details, delivery address, order information, account details, and communication history when you browse, order, or contact support.',
       },
       {
         title: 'How it is used',
-        body: 'This information is usually used for fulfillment, order updates, customer support, account access, and optional marketing with permission.',
+        body: 'This information is used to process payments, fulfill orders, send delivery updates, provide support, maintain your account, and share optional marketing only when you choose to receive it.',
+      },
+      {
+        title: 'How it is protected',
+        body: 'We take reasonable steps to protect customer information, limit unnecessary access, and work only with trusted services needed for payments, shipping, and store operations.',
       },
     ],
   },
   terms: {
     eyebrow: 'Terms & Conditions',
     title: 'Set expectations for product information, ordering, and store policies.',
-    intro: 'This page can later be updated with your final legal wording, but a clear placeholder already helps the site feel more complete.',
+    intro: 'These terms help set clear expectations for shopping on AS Crystal, including orders, pricing, delivery, and product presentation.',
     sections: [
       {
         title: 'Orders and pricing',
-        body: 'Terms usually cover availability, pricing changes, payment handling, cancellations, and order confirmation rules.',
+        body: 'Orders are subject to product availability, payment authorization, and confirmation. We may update pricing, discontinue products, or cancel an order if incorrect information or stock issues arise.',
       },
       {
         title: 'Natural variation',
-        body: 'Because crystals and gemstones are natural materials, differences in pattern, shape, and color should be expected and clearly stated.',
+        body: 'Because crystals and gemstones are natural materials, variations in color, inclusions, pattern, size, and shape are part of their character and should be expected.',
+      },
+      {
+        title: 'Use of the website',
+        body: 'Customers are expected to use the site lawfully, provide accurate order information, and avoid misuse of accounts, content, pricing, or store systems.',
       },
     ],
   },
@@ -277,3 +285,4 @@ export const fallbackMenus = {
   quick: quickLinks.map((item) => ({ title: item.label, link: item.to, items: [] })),
   help: helpLinks.map((item) => ({ title: item.label, link: item.to, items: [] })),
 };
+

@@ -210,10 +210,20 @@
   .footer-brand, .footer-contact { grid-column: 1 / -1; }
   .footer { padding-top: 48px; }
   .footer-cta-band { padding: 24px; }
+  .footer-cta-band .btn { width: 100%; }
 }
 
 @media (max-width: 480px) {
   .footer-top { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .newsletter-form { flex-direction: column; }
+  .footer-cta-band {
+    padding: 20px;
+    margin-bottom: 32px;
+  }
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+  }
 }

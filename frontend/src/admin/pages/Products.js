@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, Edit, Trash2, Search, Star } from 'lucide-react';
 import { productAPI } from '../../services/api';
@@ -12,17 +12,21 @@ const AdminProducts = () => {
   const [total, setTotal] = useState(0);
   const [pages, setPages] = useState(1);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const res = await productAPI.getProducts({ page, limit: 15, search });
       setProducts(res.products || []);
       setTotal(res.total || 0);
       setPages(res.pages || 1);
-    } finally { setLoading(false); }
-  };
+    } finally {
+      setLoading(false);
+    }
+  }, [page, search]);
 
-  useEffect(() => { load(); }, [page, search]);
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const handleDelete = async (id, name) => {
     if (!window.confirm(`Delete "${name}"?`)) return;
@@ -30,15 +34,17 @@ const AdminProducts = () => {
       await productAPI.deleteProduct(id);
       toast.success('Product deleted');
       load();
-    } catch { toast.error('Failed to delete'); }
+    } catch {
+      toast.error('Failed to delete');
+    }
   };
 
-  const f = (p) => `₹${Number(p).toLocaleString('en-IN')}`;
+  const f = (p) => `Rs. ${Number(p).toLocaleString('en-IN')}`;
 
   return (
     <div>
       <div className="admin-page-header">
-        <h1>Products <span style={{ fontSize: 16, color: 'var(--color-text-muted)', fontFamily: 'Inter' }}>({total})</span></h1>
+        <h1>Products <span style={{ fontSize: 16, color: 'var(--color-text-muted)', fontFamily: 'var(--font-body)' }}>({total})</span></h1>
         <Link to="/admin/products/new" className="btn btn-primary"><Plus size={16} /> Add Product</Link>
       </div>
 
@@ -50,7 +56,7 @@ const AdminProducts = () => {
           </div>
           <span style={{ fontSize: 13, color: 'var(--color-text-muted)' }}>{total} products</span>
         </div>
-        <div style={{ overflowX: 'auto' }}>
+        <div className="admin-table-scroll">
           <table className="admin-table">
             <thead>
               <tr>
@@ -99,9 +105,9 @@ const AdminProducts = () => {
           </table>
         </div>
         {pages > 1 && (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: 20, gap: 8 }}>
+          <div className="admin-pagination">
             {Array.from({ length: pages }, (_, i) => (
-              <button key={i + 1} onClick={() => setPage(i + 1)} style={{ width: 36, height: 36, borderRadius: 6, background: page === i + 1 ? 'rgba(201,168,76,0.2)' : 'rgba(255,255,255,0.05)', border: `1px solid ${page === i + 1 ? 'rgba(201,168,76,0.4)' : 'rgba(255,255,255,0.1)'}`, color: page === i + 1 ? 'var(--color-primary)' : 'var(--color-text-muted)', cursor: 'pointer', fontSize: 13 }}>
+              <button key={i + 1} className={page === i + 1 ? 'active' : ''} onClick={() => setPage(i + 1)}>
                 {i + 1}
               </button>
             ))}

@@ -24,9 +24,8 @@ const AdminProductForm = () => {
     categoryAPI.getCategories().then((res) => setCategories(res.categories || []));
     if (id) {
       setFetching(true);
-      // For edit, fetch by id — but our API fetches by slug. Use a workaround:
       productAPI.getProducts({ page: 1, limit: 200 }).then((res) => {
-        const p = res.products?.find((p) => p.id === parseInt(id));
+        const p = res.products?.find((item) => item.id === parseInt(id, 10));
         if (p) {
           setForm({
             name: p.name || '', description: p.description || '', short_description: p.short_description || '',
@@ -54,8 +53,11 @@ const AdminProductForm = () => {
       else await productAPI.createProduct(fd);
       toast.success(id ? 'Product updated!' : 'Product created!');
       navigate('/admin/products');
-    } catch (err) { toast.error(err.message || 'Failed to save'); }
-    finally { setLoading(false); }
+    } catch (err) {
+      toast.error(err.message || 'Failed to save');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (fetching) return <div style={{ padding: 40, color: 'var(--color-text-muted)' }}>Loading...</div>;
@@ -63,19 +65,18 @@ const AdminProductForm = () => {
   return (
     <div>
       <div className="admin-page-header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <button onClick={() => navigate('/admin/products')} style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--color-text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ArrowLeft size={16} /></button>
+        <div className="admin-inline-heading">
+          <button className="admin-back-btn" onClick={() => navigate('/admin/products')}><ArrowLeft size={16} /></button>
           <h1>{id ? 'Edit Product' : 'Add New Product'}</h1>
         </div>
         <button className="btn btn-primary" onClick={handleSubmit} disabled={loading}><Save size={16} />{loading ? 'Saving...' : 'Save Product'}</button>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 24, alignItems: 'start' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {/* Basic Info */}
+        <div className="admin-form-layout">
+          <div className="admin-form-main">
             <div className="admin-form-card">
-              <h3 style={{ fontFamily: 'Playfair Display,serif', marginBottom: 20 }}>Basic Information</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 20 }}>Basic Information</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <div className="form-group">
                   <label>Product Name *</label>
@@ -92,11 +93,10 @@ const AdminProductForm = () => {
               </div>
             </div>
 
-            {/* Pricing & Stock */}
             <div className="admin-form-card">
-              <h3 style={{ fontFamily: 'Playfair Display,serif', marginBottom: 20 }}>Pricing & Inventory</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 20 }}>Pricing & Inventory</h3>
               <div className="admin-form-grid">
-                {[['Price (₹) *','price','number'], ['Sale Price (₹)','sale_price','number'], ['Stock Quantity','stock','number'], ['SKU','sku','text']].map(([label, key, type]) => (
+                {[['Price (Rs.) *', 'price', 'number'], ['Sale Price (Rs.)', 'sale_price', 'number'], ['Stock Quantity', 'stock', 'number'], ['SKU', 'sku', 'text']].map(([label, key, type]) => (
                   <div className="form-group" key={key}>
                     <label>{label}</label>
                     <input type={type} value={form[key]} onChange={(e) => set(key, e.target.value)} required={key === 'price'} placeholder={label} />
@@ -105,11 +105,10 @@ const AdminProductForm = () => {
               </div>
             </div>
 
-            {/* Crystal Properties */}
             <div className="admin-form-card">
-              <h3 style={{ fontFamily: 'Playfair Display,serif', marginBottom: 20 }}>Crystal Properties</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 20 }}>Crystal Properties</h3>
               <div className="admin-form-grid">
-                {[['Chakra','chakra'], ['Zodiac','zodiac'], ['Element','element'], ['Origin','origin'], ['Weight','weight'], ['Dimensions','dimensions']].map(([label, key]) => (
+                {[['Chakra', 'chakra'], ['Zodiac', 'zodiac'], ['Element', 'element'], ['Origin', 'origin'], ['Weight', 'weight'], ['Dimensions', 'dimensions']].map(([label, key]) => (
                   <div className="form-group" key={key}>
                     <label>{label}</label>
                     <input value={form[key]} onChange={(e) => set(key, e.target.value)} placeholder={label} />
@@ -123,11 +122,9 @@ const AdminProductForm = () => {
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {/* Category & Status */}
+          <div className="admin-form-side">
             <div className="admin-form-card">
-              <h3 style={{ fontFamily: 'Playfair Display,serif', marginBottom: 20 }}>Organization</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 20 }}>Organization</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div className="form-group">
                   <label>Category</label>
@@ -147,9 +144,8 @@ const AdminProductForm = () => {
               </div>
             </div>
 
-            {/* Images */}
             <div className="admin-form-card">
-              <h3 style={{ fontFamily: 'Playfair Display,serif', marginBottom: 20 }}>Product Images</h3>
+              <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 20 }}>Product Images</h3>
               <label style={{ display: 'block', border: '2px dashed rgba(201,168,76,0.3)', borderRadius: 12, padding: '28px 16px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.3s' }}>
                 <input type="file" multiple accept="image/*" style={{ display: 'none' }} onChange={(e) => setFiles(Array.from(e.target.files))} />
                 <Upload size={28} style={{ color: 'rgba(201,168,76,0.4)', marginBottom: 8 }} />

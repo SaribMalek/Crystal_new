@@ -7,6 +7,8 @@
   --radius-xl: 36px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  --font-body: 'Manrope', sans-serif;
+  --font-display: 'Cormorant Garamond', serif;
 }
 
 :root,
@@ -61,7 +63,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   background:
     radial-gradient(circle at top, rgba(47, 127, 118, 0.08), transparent 28%),
     var(--gradient-hero);
@@ -69,6 +71,11 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  min-height: 100vh;
+  overflow-x: clip;
 }
 
 body::before {
@@ -84,11 +91,17 @@ body::before {
   z-index: -1;
 }
 
-h1, h2, h3, h4, h5, h6 { font-family: 'Cormorant Garamond', serif; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 button { cursor: pointer; font-family: inherit; }
 input, select, textarea { font-family: inherit; }
+button,
+input,
+select,
+textarea {
+  min-width: 0;
+}
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
@@ -98,6 +111,7 @@ input, select, textarea { font-family: inherit; }
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
+  width: 100%;
 }
 
 .btn {
@@ -290,4 +304,14 @@ input, select, textarea { font-family: inherit; }
 
 @media (max-width: 768px) {
   .container { padding: 0 16px; }
+  .app-toast {
+    min-width: 0;
+    width: min(100%, 360px);
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    width: 100%;
+  }
 }

@@ -23,7 +23,7 @@ const cards = [
   },
   {
     title: 'Payments',
-    description: 'Stripe is already connected. This area is the right place to add Razorpay and other payment settings next.',
+    description: 'Stripe checkout support is built into the codebase, and this area is the right place to connect Stripe keys or add Razorpay and other payment settings next.',
     icon: <CreditCard size={22} />,
     action: 'Configure',
     to: '/admin/settings',

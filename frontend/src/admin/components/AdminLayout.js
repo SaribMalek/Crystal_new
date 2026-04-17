@@ -88,6 +88,13 @@ const AdminLayout = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth <= 900) {
+      setSidebarOpen(false);
+    }
+    setUserMenuOpen(false);
+  }, [location.pathname]);
+
   if (!user) return <Navigate to="/admin/login" />;
   if (user.role !== 'admin') return <Navigate to="/" />;
 
@@ -129,6 +136,12 @@ const AdminLayout = () => {
           </button>
         </div>
       </aside>
+      <button
+        type="button"
+        className="admin-sidebar-backdrop"
+        aria-label="Close sidebar"
+        onClick={() => setSidebarOpen(false)}
+      />
 
       <div className="admin-main">
         <header className="admin-topbar">

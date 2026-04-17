@@ -491,7 +491,23 @@
 
 @media (max-width: 640px) {
   .hero { padding-top: 130px; min-height: auto; }
+  .hero-grid { gap: 32px; }
+  .hero-badge,
+  .status-banner { width: 100%; justify-content: center; text-align: center; }
+  .hero-title { line-height: 1.02; }
+  .hero-desc { font-size: 15px; line-height: 1.75; }
+  .hero-actions { gap: 12px; }
+  .hero-actions .btn { width: 100%; }
   .hero-main-panel img { height: 320px; }
+  .hero-panel-copy {
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px;
+  }
+  .hero-panel-copy h3 {
+    max-width: none;
+    font-size: 1.65rem;
+  }
   .hero-mini-cards,
   .trust-grid,
   .categories-grid,
@@ -501,4 +517,13 @@
   .crystal-library-grid { grid-template-columns: 1fr; }
   .hero-stats { align-items: flex-start; flex-direction: column; }
   .stat-divider { display: none; }
+  .section { padding: 64px 0; }
+  .benefits-section,
+  .cta-section { padding: 64px 0; }
+  .intention-card,
+  .testimonial-card,
+  .crystal-library-card,
+  .category-card { padding: 22px 18px; }
+  .ritual-card { flex-direction: column; }
+  .cta-content p { font-size: 15px; }
 }

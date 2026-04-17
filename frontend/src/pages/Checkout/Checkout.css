@@ -163,4 +163,28 @@
   .apply-coupon { width: 100%; }
   .order-item { align-items: flex-start; }
   .success-card { padding: 28px 20px; }
+  .order-info-row {
+    flex-wrap: wrap;
+  }
+  .success-message {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-section,
+  .order-summary {
+    padding: 18px 16px;
+  }
+  .payment-option {
+    align-items: flex-start;
+  }
+  .payment-option strong,
+  .payment-option p {
+    word-break: break-word;
+  }
+  .place-order-btn,
+  .next-btn {
+    width: 100%;
+  }
 }

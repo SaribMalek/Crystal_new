@@ -12,8 +12,12 @@ const Wishlist = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
     userAPI.getWishlist().then((res) => setWishlist(res.wishlist || [])).finally(() => setLoading(false));
-  }, []);
+  }, [user]);
 
   if (!user) return <Navigate to="/" replace />;
 

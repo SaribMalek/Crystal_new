@@ -35,7 +35,7 @@
 }
 
 .cart-header h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 22px;
   background: var(--gradient-gold);
   -webkit-background-clip: text;
@@ -80,7 +80,7 @@
 
 .empty-icon { color: rgba(201, 168, 76, 0.3); }
 
-.cart-empty h4 { font-family: 'Playfair Display', serif; font-size: 20px; }
+.cart-empty h4 { font-family: var(--font-display); font-size: 20px; }
 
 .cart-empty p { color: var(--color-text-muted); font-size: 14px; margin-bottom: 8px; }
 

@@ -61,12 +61,12 @@
   text-decoration: none;
   color: var(--color-primary);
   margin-bottom: 20px;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 700;
 }
 
-.auth-header h2 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 6px; }
+.auth-header h2 { font-family: var(--font-display); font-size: 28px; margin-bottom: 6px; }
 .auth-header p { color: var(--color-text-muted); font-size: 15px; }
 
 .auth-form { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }

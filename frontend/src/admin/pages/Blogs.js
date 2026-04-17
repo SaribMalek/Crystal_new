@@ -205,7 +205,7 @@ const AdminBlogs = () => {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 18 }}>
           <div className="admin-form-card" style={{ width: 860, maxWidth: '96vw', maxHeight: '92vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
-              <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 24 }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 24 }}>
                 {editing ? 'Edit Blog' : 'Create New Blog'}
               </h3>
               <button onClick={() => setModalOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)' }}>

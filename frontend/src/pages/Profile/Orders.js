@@ -11,8 +11,12 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
     orderAPI.getOrders().then((res) => setOrders(res.orders || [])).finally(() => setLoading(false));
-  }, []);
+  }, [user]);
 
   if (!user) return <Navigate to="/" replace />;
 
@@ -39,7 +43,7 @@ const Orders = () => {
                   <span className="order-items-count">{order.item_count} item{order.item_count !== 1 ? 's' : ''}</span>
                 </div>
                 <span className={`order-status ${order.status}`}>{order.status}</span>
-                <span className="order-total">₹{Number(order.total).toLocaleString('en-IN')}</span>
+                <span className="order-total">Rs. {Number(order.total).toLocaleString('en-IN')}</span>
               </Link>
             ))}
           </div>
